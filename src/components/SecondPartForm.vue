@@ -31,7 +31,7 @@
 
 <script>
 import InputForm from './InputForm'
-import { required} from 'vuelidate/lib/validators'
+import {required} from 'vuelidate/lib/validators'
 
 export default {
   name: "SecondPartForm",

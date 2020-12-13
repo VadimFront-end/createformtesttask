@@ -65,7 +65,7 @@ export default {
   methods: {
     createUser() {
       this.isChecked = true;
-      if(this.firstError&&this.secondError&&this.thirdError) this.isCreated = true;
+      if (this.firstError && this.secondError && this.thirdError) this.isCreated = true;
     }
   }
 }
