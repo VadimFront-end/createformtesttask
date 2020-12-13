@@ -62,10 +62,13 @@ export default {
       required
     }
   },
+  updated() {
+    console.log(!this.$v.$invalid)
+    this.$emit('ready', !this.$v.$invalid);
+  },
   watch: {
     check() {
-      if (!this.$v.$invalid) this.$emit('ready', true);
-      else this.$emit('ready', false);
+      this.$emit('ready', !this.$v.$invalid);
       this.error = true;
     }
   }

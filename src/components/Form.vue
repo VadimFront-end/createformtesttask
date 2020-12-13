@@ -3,36 +3,39 @@
     <h2 v-show="isCreated" style="color: green;text-align: center">Пользователь создан!</h2>
     <FirstPartForm
         v-show="showThisPart === 1"
-        :check="check"
-        @ready="data => {this.firstError = data;createUser()}"/>
+        :check="isChecked"
+        @ready="data => this.firstError = data"/>
     <SecondPartForm
         v-show="showThisPart === 2"
-        :check="check"
-        @ready="data => {this.secondError = data;createUser()}"/>
+        :check="isChecked"
+        @ready="data => this.secondError = data"/>
     <ThirdPartForm
         v-show="showThisPart === 3"
-        :check="check"
-        @ready="data => {this.thirdError = data;createUser()}"/>
+        :check="isChecked"
+        @ready="data => this.thirdError = data"/>
     <div class="footer-form">
       <div
           class="select-part-form"
-          :style="{border: firstError ? '2px dotted #E35757': showThisPart===1 ? '2px dotted #6B6B9E': ''}"
+          :style="{borderColor: !firstError&&isChecked ? '#E35757': '#6B6B9E',
+                   borderStyle: showThisPart===1 ? 'dotted': ''}"
           @click="showThisPart=1">1
       </div>
       <div
           class="select-part-form"
-          :style="{border: showThisPart===2 ? '2px dotted #6B6B9E': ''}"
+          :style="{borderColor: !secondError&&isChecked ? '#E35757': '#6B6B9E',
+                   borderStyle: showThisPart===2 ? 'dotted': ''}"
           @click="showThisPart=2">2
       </div>
       <div
           class="select-part-form"
-          :style="{border: showThisPart===3 ? '2px dotted #6B6B9E': ''}"
+          :style="{borderColor: !thirdError&&isChecked ? '#E35757': '#6B6B9E',
+                   borderStyle: showThisPart===3 ? 'dotted': ''}"
           @click="showThisPart=3">3
       </div>
     </div>
     <button
         class="create-button"
-        @click.prevent="check=!check"
+        @click.prevent="createUser"
         v-show="showThisPart===3">Создать
     </button>
   </form>
@@ -53,7 +56,7 @@ export default {
   data: () => ({
     showThisPart: 1,
     isReady: true,
-    check: false,
+    isChecked: false,
     isCreated: false,
     firstError: false,
     secondError: false,
@@ -61,8 +64,8 @@ export default {
   }),
   methods: {
     createUser() {
-      if(!this.isCreated)
-        if(this.firstError&&this.secondError&&this.thirdError) this.isCreated = true;
+      this.isChecked = true;
+      if(this.firstError&&this.secondError&&this.thirdError) this.isCreated = true;
     }
   }
 }
@@ -95,7 +98,9 @@ export default {
 .select-part-form
   padding: 1px 5px
   cursor: pointer
-  border: 1px solid #6B6B9E
+  border-color: #6B6B9E
+  border-style: solid
+  border-width: 2px
 
 .create-button
   display: block

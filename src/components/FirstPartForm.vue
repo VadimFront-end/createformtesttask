@@ -82,7 +82,7 @@ export default {
     name: '',
     surname: '',
     middleName: '',
-    birthday: NaN,
+    birthday: '',
     number: '',
     userSex: true,
     clientsGroup: ['VIP', 'Проблемные', 'ОМС'],
@@ -114,10 +114,13 @@ export default {
       minLength: minLength(2)
     }
   },
+  updated() {
+    console.log(!this.$v.$invalid)
+    this.$emit('ready', !this.$v.$invalid);
+  },
   watch: {
     check() {
-      if (!this.$v.$invalid) this.$emit('ready', true);
-      else this.$emit('ready', false);
+      this.$emit('ready', !this.$v.$invalid);
       this.error = true;
     }
   }
