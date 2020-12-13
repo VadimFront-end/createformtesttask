@@ -1,7 +1,13 @@
 import Vue from 'vue'
+import Vuelidate from 'vuelidate'
+import './assets/styles/style.sass'
+
 import App from './App.vue'
 
+Vue.config.devtools = true
 Vue.config.productionTip = false
+
+Vue.use(Vuelidate)
 
 new Vue({
   render: h => h(App),
